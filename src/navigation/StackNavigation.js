@@ -3,6 +3,7 @@ import { SCREEN_NAME } from "../constants/screen-constants";
 import EditDiary from "../screens/home/EditDiary";
 import ReadDiary from "../screens/home/ReadDiary";
 import Admin from "../screens/myPage/Admin";
+import Auth from "../screens/myPage/Auth";
 import EditMyPage from "../screens/myPage/EditMyPage";
 import Login from "../screens/myPage/Login";
 import TechDetail from "../screens/techTree/TechDetail";
@@ -26,6 +27,7 @@ export default function StackNavigation() {
       {/* MyPage */}
       <Stack.Screen name={SCREEN_NAME.EDIT_MY_PAGE} component={EditMyPage} />
       <Stack.Screen name={SCREEN_NAME.ADMIN} component={Admin} />
+      <Stack.Screen name={SCREEN_NAME.AUTH} component={Auth} />
       {/* <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login}  /> */}
     </Stack.Navigator>
   );

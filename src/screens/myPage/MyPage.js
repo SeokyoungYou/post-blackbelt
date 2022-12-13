@@ -41,8 +41,10 @@ export default function MyPage({ navigation }) {
     title: SCREEN_NAME.MY_PAGE,
     right: {
       icon: "settings",
-      iconColor: "white",
-      onPress: () => {},
+      iconColor: "black",
+      onPress: () => {
+        navigation.navigate(SCREEN_NAME.AUTH);
+      },
     },
   };
 
