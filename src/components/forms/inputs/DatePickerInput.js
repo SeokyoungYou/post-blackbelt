@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     fontSize: 14,
     justifyContent: "center",
+    color: theme.black,
   },
   touchable: {
     position: "relative",

@@ -22,9 +22,6 @@ export default function HomeProfile({ daysInMonth, countDiary }) {
   );
   const checkUser = async () => {
     const asyncStorageUser = await getUserProfileAndName();
-    if (!asyncStorageUser) {
-      return setUser(defaultUser);
-    }
     setUser(asyncStorageUser);
   };
 

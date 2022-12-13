@@ -120,7 +120,7 @@ export const getUserProfileAndName = async () => {
     if (isIncludeKey(user, PROFILE_IMG)) {
       profile = user[PROFILE_IMG];
     }
-    if (isIncludeKey(user, NAME)) {
+    if (isIncludeKey(user, NAME) && user[NAME] !== "") {
       userName = user[NAME];
     }
   }
