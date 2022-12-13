@@ -20,6 +20,7 @@ export default function Home({ navigation }) {
   const [currYearMonth, setCurrYearMonth] = useState(
     getYearMonthByDate(getFormattedToday())
   );
+
   useEffect(
     useCallback(() => {
       createTable();

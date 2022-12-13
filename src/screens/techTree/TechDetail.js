@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import DiaryScrollBox from "../../components/diary/DiaryScrollBox";
-import TechHeader from "../../components/utils/TechHeader";
+import TechHeader from "../../components/headers/TechHeader";
 import { theme } from "../../theme";
 
 export default function TechDetail({ navigation }) {

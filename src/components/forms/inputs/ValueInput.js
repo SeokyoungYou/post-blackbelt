@@ -1,21 +1,21 @@
+import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { theme } from "../../theme";
+import { theme } from "../../../theme";
 
-export default function InputForm() {
-  const [text, setText] = useState("");
+export default function ValueText({ text, setText, placeholder, inputProp }) {
   const [backgroundColor, setBackgroundColor] = useState(theme.white);
 
   const onChangeText = (payload) => {
-    setBackgroundColor(theme.lightred);
+    setBackgroundColor(theme.purpleLight);
     setText(payload);
   };
   return (
     <TextInput
       onChangeText={onChangeText}
       value={text}
-      //   maxLength={lineInputProp.maxLength}
-      //   multiline={lineInputProp.multiline}
-      placeholder={` 입력하세요`}
+      maxLength={inputProp.maxLength}
+      multiline={inputProp.multiline}
+      placeholder={`${placeholder}(을/를) 입력하세요`}
       style={{ ...styles.input, backgroundColor }}
     />
   );

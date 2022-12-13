@@ -1,80 +1,103 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Header from "../../components/utils/Header";
-import DatePicker from "../../components/inputs/InputDatePicker";
-import Input from "../../components/inputs/Input";
-import InputPicker from "../../components/inputs/InputPicker";
-import { SCREEN_NAME } from "../../constants/screen-constants";
+import { useEffect, useState } from "react";
+
 import {
-  BELT_COLOR,
   BELT_COLOR_KEY,
-  BELT_GRAU,
   BELT_GRAU_KEY,
-  MONTHLY_GOAL,
-  NAME,
-  PROMOTION_DATE,
-  START_DATE,
-  TEAM,
-  YEARLY_GOAL,
+  emptyUser,
+  INPUT_TITLE,
+  INPUT_TYPE,
 } from "../../constants/user-inputs-constants";
-import { removeStorageData, STORAGE_KEY } from "../../utils/async-storage-fn";
-import { handleAlert } from "../../utils/react-native-utils";
-import { theme } from "../../theme";
+
+import HeaderEditMyPage from "../../components/headers/EditMyPageHeader";
+import SingleLineForm from "../../components/forms/SingleLineForm";
+import MultiLineForm from "../../components/forms/MultiLineForm";
+import DatePickerForm from "../../components/forms/DatePickerForm";
+import DropdownPickerForm from "../../components/forms/DropdownPickerForm";
+import {
+  getStorageUser,
+  saveStorageUser,
+  setEmptyUser,
+} from "../../utils/async-storage-fn";
 
 export default function EditMyPage({ navigation }) {
-  const singleInputProp = {
-    maxLength: 15,
-    multiline: false,
-  };
-  const multiInputProp = {
-    maxLength: 20,
-    multiline: true,
+  const [user, setUser] = useState(emptyUser);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const asyncStorageUser = await getStorageUser();
+    const loadedUser = asyncStorageUser
+      ? await setEmptyUser(asyncStorageUser)
+      : emptyUser;
+    setUser(loadedUser);
   };
 
-  const handleNavigateAdmin = () => {
-    handleAlert("모든 데이터를 삭제합니다", "개발자 모드", [
-      { text: "취소" },
-      {
-        text: "이동",
-        onPress: () => {
-          navigation.navigate(SCREEN_NAME.ADMIN);
-        },
-      },
-    ]);
+  const setUserByType = (type, payload) => {
+    setUser((prev) => {
+      return { ...prev, [type]: payload };
+    });
   };
 
-  const headerInfo = {
-    left: {
-      icon: "chevron-left",
-      iconColor: "black",
-      onPress: () => {
-        navigation.navigate(SCREEN_NAME.MY_PAGE);
-      },
-    },
-    title: `Edit ${SCREEN_NAME.MY_PAGE}`,
-    right: {
-      icon: "delete",
-      iconColor: "white",
-      onPress: handleNavigateAdmin,
-    },
+  const handleSubmit = async () => {
+    await saveStorageUser(user);
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <Header headerInfo={headerInfo} />
+      <HeaderEditMyPage navigation={navigation} handleSubmit={handleSubmit} />
       <View style={styles.inputs}>
-        <Text style={styles.title}>
-          정보를 입력하고 저장 버튼을 눌러주세요.
-        </Text>
         <KeyboardAwareScrollView>
-          <Input type={NAME} lineInputProp={singleInputProp} />
-          <Input type={TEAM} lineInputProp={singleInputProp} />
-          <DatePicker type={START_DATE} />
-          <InputPicker type={BELT_COLOR} pickerItem={BELT_COLOR_KEY} />
-          <InputPicker type={BELT_GRAU} pickerItem={BELT_GRAU_KEY} />
-          <DatePicker type={PROMOTION_DATE} />
-          <Input type={YEARLY_GOAL} lineInputProp={multiInputProp} />
-          <Input type={MONTHLY_GOAL} lineInputProp={multiInputProp} />
+          <SingleLineForm
+            title={INPUT_TITLE[INPUT_TYPE.NAME]}
+            text={user[INPUT_TYPE.NAME]}
+            setText={setUserByType.bind(this, INPUT_TYPE.NAME)}
+          />
+          <SingleLineForm
+            title={INPUT_TITLE[INPUT_TYPE.TEAM]}
+            text={user[INPUT_TYPE.TEAM]}
+            setText={setUserByType.bind(this, INPUT_TYPE.TEAM)}
+          />
+
+          <DatePickerForm
+            title={INPUT_TITLE[INPUT_TYPE.START_DATE]}
+            text={user[INPUT_TYPE.START_DATE]}
+            setText={setUserByType.bind(this, INPUT_TYPE.START_DATE)}
+          />
+
+          <DropdownPickerForm
+            title={INPUT_TITLE[INPUT_TYPE.BELT_COLOR]}
+            text={user[INPUT_TYPE.BELT_COLOR]}
+            setText={setUserByType.bind(this, INPUT_TYPE.BELT_COLOR)}
+            pickerItem={BELT_COLOR_KEY}
+          />
+          <DropdownPickerForm
+            title={INPUT_TITLE[INPUT_TYPE.BELT_GRAU]}
+            text={user[INPUT_TYPE.BELT_GRAU]}
+            setText={setUserByType.bind(this, INPUT_TYPE.BELT_GRAU)}
+            pickerItem={BELT_GRAU_KEY}
+          />
+
+          <DatePickerForm
+            title={INPUT_TITLE[INPUT_TYPE.PROMOTION_DATE]}
+            text={user[INPUT_TYPE.PROMOTION_DATE]}
+            setText={setUserByType.bind(this, INPUT_TYPE.PROMOTION_DATE)}
+          />
+
+          <MultiLineForm
+            title={INPUT_TITLE[INPUT_TYPE.YEARLY_GOAL]}
+            text={user[INPUT_TYPE.YEARLY_GOAL]}
+            setText={setUserByType.bind(this, INPUT_TYPE.YEARLY_GOAL)}
+          />
+          <MultiLineForm
+            title={INPUT_TITLE[INPUT_TYPE.MONTHLY_GOAL]}
+            text={user[INPUT_TYPE.MONTHLY_GOAL]}
+            setText={setUserByType.bind(this, INPUT_TYPE.MONTHLY_GOAL)}
+          />
         </KeyboardAwareScrollView>
       </View>
     </View>
@@ -87,9 +110,6 @@ const styles = StyleSheet.create({
   inputs: {
     flex: 5,
     alignItems: "center",
-  },
-  title: {
     marginTop: 10,
-    color: theme.grey,
   },
 });

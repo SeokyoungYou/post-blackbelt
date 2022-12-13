@@ -1,5 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NAME, PROFILE_IMG } from "../constants/user-inputs-constants";
+import {
+  defaultUser,
+  INPUT_TYPE,
+  NAME,
+  PROFILE_IMG,
+} from "../constants/user-inputs-constants";
 import profileImg from "../../assets/images/user.png";
 
 // utils
@@ -10,6 +15,26 @@ export const STORAGE_KEY = {
 
 export const isIncludeKey = (userObject, key) => {
   return Object.keys(userObject).includes(key);
+};
+
+export const setEmptyUser = async (asyncStorageUser) => {
+  for (const type in INPUT_TYPE) {
+    asyncStorageUser[type] = isIncludeKey(asyncStorageUser, type)
+      ? asyncStorageUser[type]
+      : "";
+  }
+  return asyncStorageUser;
+};
+export const setDefaultUser = async (asyncStorageUser) => {
+  for (const type in INPUT_TYPE) {
+    if (
+      !isIncludeKey(asyncStorageUser, type) ||
+      asyncStorageUser[type] === ""
+    ) {
+      asyncStorageUser[type] = defaultUser[type];
+    }
+  }
+  return asyncStorageUser;
 };
 
 export const USER_NAME_ERROR = "사용자 정보를 입력해주세요";

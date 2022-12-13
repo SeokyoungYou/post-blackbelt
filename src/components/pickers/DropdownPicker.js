@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   picker: {
     width: 160,
     fontSize: 14,
-    height: 45,
     justifyContent: "center",
   },
   pickerItem: {

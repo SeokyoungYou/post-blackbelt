@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import Header from "../../components/utils/Header";
+import Header from "../../components/headers/Header";
 import { SCREEN_NAME, TAB_NAME } from "../../constants/screen-constants";
 import DiaryFull from "../../components/diary/DiaryFull";
 import { theme } from "../../theme";

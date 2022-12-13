@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFocusEffect } from "@react-navigation/native";
 import DiaryEditor from "../../components/diary/DiaryEditor";
-import EditDiaryHeader from "../../components/utils/EditDiaryHeader";
+import EditDiaryHeader from "../../components/headers/EditDiaryHeader";
 
 import { theme } from "../../theme";
 import { initializeEditDiray, updateEditDiary } from "../../utils/store";
