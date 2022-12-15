@@ -24,4 +24,4 @@ const app = initializeApp(firebaseConfig);
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase
 
 // Initialize Firebase Authentication and get a reference to the service
-export const authService = getAuth(app);
+export const authService = getAuth();

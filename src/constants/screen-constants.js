@@ -14,7 +14,7 @@ export const SCREEN_NAME = {
   EDIT_DIARY: "Write Diary",
   READ_DIARY: "Read Diary",
   ADMIN: "Admin",
-  AUTH: "Auth",
+  SETTING: "Setting",
 };
 
 export const NAV_ICON_MAP = {

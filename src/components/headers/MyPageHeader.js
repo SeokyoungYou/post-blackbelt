@@ -15,7 +15,7 @@ export default function MyPageHeader({ navigation }) {
       icon: "settings",
       iconColor: "black",
       onPress: () => {
-        navigation.navigate(SCREEN_NAME.AUTH);
+        navigation.navigate(SCREEN_NAME.SETTING);
       },
     },
   };
