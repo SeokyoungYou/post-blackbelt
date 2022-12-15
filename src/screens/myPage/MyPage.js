@@ -29,9 +29,7 @@ export default function MyPage({ navigation }) {
     }, [])
   );
 
-  const handleNavigateEditMyPage = () => {
-    navigation.navigate(SCREEN_NAME.EDIT_MY_PAGE);
-  };
+  const handleNavigateEditMyPage = () => {};
 
   const setFormattedStartDate = async (startDate) => {
     const today = new Date();
@@ -74,33 +72,32 @@ export default function MyPage({ navigation }) {
       </View>
       <View id="mypage-main" style={styles.mainContainer}>
         <TouchableOpacity
-          style={styles.editBtn}
-          onPress={handleNavigateEditMyPage}
+          style={styles.userContainer}
+          onPress={() => navigation.navigate(SCREEN_NAME.EDIT_MY_PAGE)}
         >
-          <Text style={styles.editBtnText}>수정하기</Text>
-        </TouchableOpacity>
-        <Image
-          id="mypage-profile-img"
-          style={styles.profileImg}
-          source={profileImg}
-          // source={user[PROFILE_IMG]}
-        />
-        <View id="mypage-profile-container" style={styles.profileContainer}>
-          <MyPageProfile user={user} />
-          <View id="mypage-belt-container">
-            <Belt user={user} />
+          <Image
+            id="mypage-profile-img"
+            style={styles.profileImg}
+            source={profileImg}
+          />
+          <View id="mypage-profile-container" style={styles.profileContainer}>
+            <MyPageProfile user={user} />
+            <View id="mypage-belt-container">
+              <Belt user={user} />
+            </View>
           </View>
-        </View>
-        <View id="mypage-goals" style={inheritStyles.goalsSubContainer}>
-          <MyPageGoals user={user} />
-        </View>
-        <View
+          <View id="mypage-goals" style={inheritStyles.goalsSubContainer}>
+            <MyPageGoals user={user} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
           id="mypage-tech-piechart"
           style={inheritStyles.pieChartSubContainer}
+          onPress={() => navigation.navigate(SCREEN_NAME.TECH_TREE)}
         >
           <Text>나의 기술 분포도</Text>
           <TechPieChart />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -110,14 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  editBtn: {
-    padding: 8,
-    backgroundColor: theme.purpleLight,
-    position: "absolute",
-    right: 20,
-    top: -10,
-    borderRadius: 10,
-  },
+
   editBtnText: {
     fontSize: 12,
     textAlign: "center",
@@ -126,17 +116,23 @@ const styles = StyleSheet.create({
     flex: 0.4,
     // backgroundColor: "rgba(0, 0, 0, 0.05)",
   },
+  userContainer: {
+    width: "100%",
+    flex: 0.96,
+    alignItems: "center",
+    justifyContent: "space-around",
+    position: "relative",
+  },
   mainContainer: {
     flex: 4,
     alignItems: "center",
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
     position: "relative",
   },
   subContainer: {
     backgroundColor: theme.white,
     width: "90%",
     borderRadius: 10,
-
     alignItems: "center",
   },
 

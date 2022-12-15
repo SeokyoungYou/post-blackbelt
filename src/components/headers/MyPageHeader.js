@@ -5,8 +5,10 @@ export default function MyPageHeader({ navigation }) {
   const headerInfo = {
     left: {
       icon: "edit",
-      iconColor: "white",
-      onPress: () => {},
+      iconColor: "black",
+      onPress: () => {
+        navigation.navigate(SCREEN_NAME.EDIT_MY_PAGE);
+      },
     },
     title: SCREEN_NAME.MY_PAGE,
     right: {

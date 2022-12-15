@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
   },
   userTeam: {
     flexDirection: "row",
-    marginTop: 3,
+    marginTop: 8,
     alignItems: "center",
   },
   userInfos: {
     alignItems: "center",
-    marginVertical: 6,
+    marginVertical: 10,
   },
   userInfo: {
     color: theme.grey,
