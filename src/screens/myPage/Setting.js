@@ -1,42 +1,38 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import * as Google from "expo-auth-session/providers/google";
-import { useEffect, useState } from "react";
-import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import { useEffect } from "react";
 import SettingHeader from "../../components/headers/SettingHeader";
-import { authService } from "../../../firebaseConfig";
-import getEnvVars from "../../../environment";
+import { SCREEN_NAME } from "../../constants/screen-constants";
 
 export default function Setting({ navigation }) {
-  const [token, setToken] = useState();
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: getEnvVars().WEB_STANDALONE_APP_CLIENT_ID,
-    webClientId: getEnvVars().WEB_STANDALONE_APP_CLIENT_ID,
-    androidClientId: getEnvVars().ANDROID_STANDALONE_APP_CLIENT_ID,
-    iosClientId: getEnvVars().IOS_STANDALONE_APP_CLIENT_ID,
-  });
-
   useEffect(() => {
-    if (response?.type === "success") {
-      const { idToken, accessToken } = response.authentication;
-      setToken(response.authentication.accessToken);
-      const credential = GoogleAuthProvider.credential(idToken, accessToken);
-      signInWithCredential(authService, credential);
-    }
-  }, [response]);
+    // getAllDiarys(printResult);
+    // deleteAllSQLData();
+    // loadData();
+  }, []);
+
+  // const auth = getAuth();
+  // console.log(input);
+  // createUserWithEmailAndPassword(auth, input.email, input.password)
+  //   .then((userCredential) => {
+  //     // Signed in
+  //     // const { user } = userCredential;
+  //     console.log(userCredential);
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     console.log(error);
+  //     // ..
+  //   });
 
   return (
     <View style={styles.container}>
       <SettingHeader navigation={navigation} />
       <View style={styles.mainContainer}>
         <TouchableOpacity
-          style={styles.googleBtn}
-          onPress={async () => {
-            await promptAsync();
-          }}
+          onPress={() => navigation.navigate(SCREEN_NAME.LOGIN)}
         >
-          <AntDesign name="google" size={24} color="black" />
-          <Text style={styles.googleText}>구글 계정으로 로그인하기</Text>
+          <Text>Login</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -51,15 +47,5 @@ const styles = StyleSheet.create({
     flex: 4.4,
     alignItems: "center",
     padding: 25,
-  },
-  googleBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 15,
-  },
-  googleText: {
-    marginLeft: 5,
   },
 });

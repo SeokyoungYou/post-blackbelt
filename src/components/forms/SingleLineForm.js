@@ -1,5 +1,5 @@
 import { INPUT_MAX_LEN } from "../../constants/user-inputs-constants";
-import ValueText from "./inputs/ValueInput";
+import ValueInput from "./inputs/ValueInput";
 import TitleInputForm from "./TitleInputForm";
 
 export default function SingleLineForm({ title, text, setText }) {
@@ -9,7 +9,7 @@ export default function SingleLineForm({ title, text, setText }) {
   };
   return (
     <TitleInputForm title={title}>
-      <ValueText
+      <ValueInput
         text={text}
         setText={setText}
         placeholder={title}

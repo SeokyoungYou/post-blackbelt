@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { theme } from "../../../theme";
 
-export default function ValueInput({ text, setText, placeholder, inputProp }) {
+export default function LoginInput({ text, setText, title, secure }) {
   const [backgroundColor, setBackgroundColor] = useState(theme.white);
 
   const onChangeText = (payload) => {
@@ -13,9 +13,9 @@ export default function ValueInput({ text, setText, placeholder, inputProp }) {
     <TextInput
       onChangeText={onChangeText}
       value={text}
-      maxLength={inputProp.maxLength}
-      multiline={inputProp.multiline}
-      placeholder={`${placeholder}(을/를) 입력하세요`}
+      secureTextEntry={secure}
+      placeholder={`${title}(을/를) 입력하세요`}
+      autoCapitalize="none"
       style={{ ...styles.input, backgroundColor }}
     />
   );

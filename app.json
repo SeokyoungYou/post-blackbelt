@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "post-blackbelt",
-    "slug": "post-blackbelt",
-    "version": "1.0.1",
+    "name": "Post Black Belt",
+    "slug": "postblackbelt",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,29 +11,30 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "myapp",
+    "scheme": "com.quartz.postblackbelt",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "quartz.postblackbelt"
+      "bundleIdentifier": "com.quartz.postblackbelt"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "versionCode": 2,
-      "package": "com.quartz_u.postblackbelt"
+      "versionCode": 3,
+      "package": "com.quartz.postblackbelt",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "19e36040-c926-47b9-b6cc-eae6845233ad"
+        "projectId": "76b1a79a-7cc9-4ae0-840d-2630c2e69a0e"
       }
     }
   }

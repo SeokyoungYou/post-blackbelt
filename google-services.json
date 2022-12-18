@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "652025489651",
+    "firebase_url": "https://post-black-belt-default-rtdb.firebaseio.com",
+    "project_id": "post-black-belt",
+    "storage_bucket": "post-black-belt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652025489651:android:b05d4683788bde801def86",
+        "android_client_info": {
+          "package_name": "com.quartz.postblackbelt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652025489651-si0okvpfbodh022buq9bh28g4dgdoctu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quartz.postblackbelt",
+            "certificate_hash": "0769540695b1a02fd02be71cb675730eb5e5886b"
+          }
+        },
+        {
+          "client_id": "652025489651-d75g0l18stkm56f318u1p2qi9palvpjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPx3jLMHHXTxaiJwwQksIOLgBkwK_VxaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652025489651-d75g0l18stkm56f318u1p2qi9palvpjm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652025489651-6cba3t15lrf6br57k58pd6c6ilprke4k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "quartz.postblackbelt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
