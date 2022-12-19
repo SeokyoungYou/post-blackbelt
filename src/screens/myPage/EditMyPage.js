@@ -19,7 +19,7 @@ import {
   getStorageUser,
   saveStorageUser,
   setEmptyUser,
-} from "../../utils/async-storage-fn";
+} from "../../utils/async-storage/diary-async";
 
 export default function EditMyPage({ navigation }) {
   const [user, setUser] = useState(emptyUser);

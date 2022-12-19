@@ -1,6 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../../theme";
-import { removeStorageData, STORAGE_KEY } from "../../utils/async-storage-fn";
+import {
+  removeStorageData,
+  STORAGE_KEY,
+} from "../../utils/async-storage/diary-async";
 import { deleteAllSQLData } from "../../utils/sql-db";
 
 export default function Admin({ navigation }) {

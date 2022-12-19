@@ -1,17 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { FIREBASE } from "./env";
+import { FIREBASE_CONST } from "./env";
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: FIREBASE.API_KEY,
-  authDomain: FIREBASE.AUTH_DOMAIN,
-  databaseURL: FIREBASE.DB_URL,
-  projectId: FIREBASE.PROJECT_ID,
-  storageBucket: FIREBASE.STORAGE_BUCKET,
-  messagingSenderId: FIREBASE.MESSAGING_SEN_ID,
-  appId: FIREBASE.APP_ID,
+  apiKey: FIREBASE_CONST.API_KEY,
+  authDomain: FIREBASE_CONST.AUTH_DOMAIN,
+  databaseURL: FIREBASE_CONST.DB_URL,
+  projectId: FIREBASE_CONST.PROJECT_ID,
+  storageBucket: FIREBASE_CONST.STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_CONST.MESSAGING_SEN_ID,
+  appId: FIREBASE_CONST.APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

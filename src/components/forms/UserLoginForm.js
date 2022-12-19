@@ -2,11 +2,14 @@ import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authService } from "../../../firebaseConfig";
 import LoginForm from "./LoginForm";
-import { updateUserEmail } from "../../utils/store";
+import { updateFirebaseUser, updateUserEmail } from "../../utils/store";
 import { theme } from "../../theme";
+import FirebaseUser, {
+  getFirebaseUser,
+} from "../../utils/firebase-fn/firebaseuser-firebase-fn";
 
 const LOGIN_MSG = {
   EMAIL_ERR: "이메일을 입력해주세요",
@@ -48,12 +51,10 @@ const CHANGE_STATE = [
     CHANGE_MSG: "비밀번호 초기화하기",
   },
 ];
-
-export default function UserLoginForm() {
+const initialInput = { email: "", password: "" };
+export default function UserLoginForm({ loadUser }) {
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
-  const dispatch = useDispatch();
-  const [input, setInput] = useState({ email: "", password: "" });
-  const [data, setData] = useState();
+  const [input, setInput] = useState(initialInput);
   const [msg, setMsg] = useState("");
   const setInputByType = (type, payload) => {
     setInput((prev) => {
@@ -77,13 +78,10 @@ export default function UserLoginForm() {
   const handleSignUp = async () => {
     if (validateSubmit()) {
       try {
-        const userData = await createUserWithEmailAndPassword(
-          authService,
-          input.email,
-          input.password
-        );
-        dispatch(updateUserEmail(userData.user.email));
+        const firebaseUser = getFirebaseUser();
+        await firebaseUser.signUp(input);
         setMsg(LOGIN_MSG.SUCCESS);
+        await loadUser();
       } catch (error) {
         setMsg(`${LOGIN_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`);
       }
@@ -91,8 +89,17 @@ export default function UserLoginForm() {
   };
 
   // TODO:
-  const handleLogin = () => {
-    console.log("login");
+  const handleLogin = async () => {
+    if (validateSubmit()) {
+      try {
+        const firebaseUser = getFirebaseUser();
+        await firebaseUser.login(input);
+        setMsg(LOGIN_MSG.SUCCESS);
+        await loadUser();
+      } catch (error) {
+        setMsg(`${LOGIN_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`);
+      }
+    }
   };
   const handleResetPassword = () => {
     console.log("restv password");
@@ -143,6 +150,7 @@ export default function UserLoginForm() {
             <TouchableOpacity
               onPress={() => setFormState(element.STATE_NAME)}
               style={styles.changeStateWrapper}
+              key={element.STATE_NAME}
             >
               <Text style={styles.changeTitle}>{element.TITLE}</Text>
               <Text style={styles.changeMsg}>{element.CHANGE_MSG}</Text>

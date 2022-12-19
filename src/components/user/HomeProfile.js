@@ -6,7 +6,7 @@ import { theme } from "../../theme";
 import {
   getUserProfileAndName,
   USER_NAME_ERROR,
-} from "../../utils/async-storage-fn";
+} from "../../utils/async-storage/diary-async";
 
 export default function HomeProfile({ daysInMonth, countDiary }) {
   const defaultUser = {

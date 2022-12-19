@@ -8,7 +8,10 @@ import TechPieChart from "../../components/user/TechPieChart";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 import profileImg from "../../../assets/images/user.png";
 import backgroundImg from "../../../assets/images/userBackground2.jpg";
-import { getStorageUser, setDefaultUser } from "../../utils/async-storage-fn";
+import {
+  getStorageUser,
+  setDefaultUser,
+} from "../../utils/async-storage/diary-async";
 import {
   defaultUser,
   PROMOTION_DATE,

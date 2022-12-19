@@ -12,7 +12,6 @@ const editDiaryInital = {
 const initialState = {
   selectedDate: getFormattedToday(),
   editDiary: editDiaryInital,
-  userEmail: "",
 };
 const date = createSlice({
   name: "dateReducer",
@@ -20,9 +19,6 @@ const date = createSlice({
   reducers: {
     updateSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
-    },
-    updateUserEmail: (state, action) => {
-      state.userEmail = action.payload;
     },
     initializeEditDiray: (state) => {
       state.editDiary = editDiaryInital;
@@ -45,7 +41,7 @@ const date = createSlice({
   },
 });
 
-const dateStore = configureStore({ reducer: date.reducer });
+const reduxStore = configureStore({ reducer: date.reducer });
 export const {
   updateSelectedDate,
   initializeEditDiray,
@@ -54,7 +50,6 @@ export const {
   updateTechCategory,
   updateTitle,
   updateContent,
-  updateUserEmail,
 } = date.actions;
 
-export default dateStore;
+export default reduxStore;

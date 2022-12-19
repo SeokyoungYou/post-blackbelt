@@ -4,13 +4,14 @@ import {
   INPUT_TYPE,
   NAME,
   PROFILE_IMG,
-} from "../constants/user-inputs-constants";
-import profileImg from "../../assets/images/user.png";
+} from "../../constants/user-inputs-constants";
+import profileImg from "../../../assets/images/user.png";
 
 // utils
 
 export const STORAGE_KEY = {
   USER: "@user",
+  FIREBASE_USER: "@firebaseUser",
 };
 
 export const isIncludeKey = (userObject, key) => {
