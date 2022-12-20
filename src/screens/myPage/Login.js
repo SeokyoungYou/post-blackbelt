@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import GoBackHeader from "../../components/headers/GoBackHeader";
 import UserLoginForm from "../../components/forms/UserLoginForm";
@@ -23,11 +22,7 @@ export default function Login({ navigation }) {
   }, []);
 
   const loadUser = async () => {
-    // await saveStorageFirebaseUser({ hi: "hihi" });
-    // setFirebaseUser();
-
     const asyncUser = await getStorageFirebaseUser();
-    console.log(asyncUser);
     if (asyncUser) {
       setAsnycEmail(asyncUser.email);
     } else {

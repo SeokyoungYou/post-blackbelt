@@ -2,6 +2,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { authService } from "../../../firebaseConfig";
 import {
@@ -9,7 +10,6 @@ import {
   saveStorageFirebaseUser,
   removeStorageFirebaseUser,
 } from "../async-storage/user-async";
-import reduxStore, { updateUserEmail } from "../store";
 
 export class FirebaseUser {
   #email;
@@ -61,6 +61,10 @@ export class FirebaseUser {
     authService.signOut();
     this.#email = "";
     this.removeAsyncStorageUser();
+  }
+
+  async resetPassword() {
+    await sendPasswordResetEmail(authService, this.#email);
   }
 }
 
