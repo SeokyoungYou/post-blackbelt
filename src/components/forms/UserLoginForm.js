@@ -1,60 +1,19 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { authService } from "../../../firebaseConfig";
+
 import LoginForm from "./LoginForm";
 import { theme } from "../../theme";
-import FirebaseUser, {
-  getFirebaseUser,
-} from "../../utils/firebase-fn/firebaseuser-firebase-fn";
+import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-firebase-fn";
+import {
+  BTN_TEXT,
+  CHANGE_STATE,
+  FORM_STATE,
+  FORM_TITLE,
+  LOGIN_MSG,
+  LOGIN_TYPE,
+  RESET_PASSWORD_MSG,
+} from "../../utils/constants/login-form-const";
 
-const LOGIN_MSG = {
-  EMAIL_ERR: "이메일을 형식에 맞게 입력해주세요",
-  PASSWORD_ERR: "비밀번호를 형식에 맞게 입력해주세요",
-  SUCCESS: "회원가입/로그인이 완료되었습니다",
-  FAIL: "회원가입/로그인에 실패하였습니다. \n계정이 있다면 로그인하거나 에러 코드를 개발자에게 문의하세요.",
-};
-
-const RESET_PASSWORD_MSG = {
-  SUCCESS:
-    "입력하신 이메일로 보낸 링크를 클릭하여 비밀번호를 재설정하세요. 수신된 메일이 없다면 스팸함을 확인하거나 초기화 버튼을 다시 눌러주세요.",
-  FAIL: "비밀번호 초기화에 실패하였습니다. \n계정이 있다면 로그인하거나 에러 코드를 개발자에게 문의하세요.",
-};
-
-const FORM_STATE = {
-  SIGN_UP: "SIGN_UP",
-  LOGIN: "LOGIN",
-  REST_PASSWORD: "REST_PASSWORD",
-};
-const FORM_TITLE = {
-  SIGN_UP: "회원가입하기",
-  LOGIN: "로그인하기",
-  REST_PASSWORD: "비밀번호 재설정하기",
-};
-const BTN_TEXT = {
-  SIGN_UP: "계정 만들기",
-  LOGIN: "로그인",
-  REST_PASSWORD: "비밀번호 재설정",
-};
-
-const CHANGE_STATE = [
-  {
-    STATE_NAME: FORM_STATE.SIGN_UP,
-    TITLE: "회원이 아니신가요?",
-    CHANGE_MSG: "회원가입하기",
-  },
-  {
-    STATE_NAME: FORM_STATE.LOGIN,
-    TITLE: "이미 계정이 있으신가요?",
-    CHANGE_MSG: "로그인하기",
-  },
-  {
-    STATE_NAME: FORM_STATE.REST_PASSWORD,
-    TITLE: "비밀번호를 잊어버리셨나요?",
-    CHANGE_MSG: "비밀번호 초기화하기",
-  },
-];
 const initialInput = { email: "", password: "" };
 export default function UserLoginForm({ loadUser }) {
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
@@ -121,7 +80,6 @@ export default function UserLoginForm({ loadUser }) {
     }
   };
 
-  // TODO:
   const handleResetPassword = async () => {
     if (validateEmail()) {
       try {
@@ -152,17 +110,17 @@ export default function UserLoginForm({ loadUser }) {
     <View style={styles.container}>
       <Text style={styles.title}>{FORM_TITLE[formState]}</Text>
       <LoginForm
-        type="EMAIL"
+        type={LOGIN_TYPE.EMAIL}
         text={input.email}
-        setText={setInputByType.bind(this, "email")}
+        setText={setInputByType.bind(this, LOGIN_TYPE.EMAIL)}
         secure={false}
       />
 
       {formState !== FORM_STATE.REST_PASSWORD && (
         <LoginForm
-          type="PASSWORD"
+          type={LOGIN_TYPE.PASSWORD}
           text={input.password}
-          setText={setInputByType.bind(this, "password")}
+          setText={setInputByType.bind(this, LOGIN_TYPE.PASSWORD)}
           secure
         />
       )}

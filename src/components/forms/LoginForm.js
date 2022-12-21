@@ -1,32 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
+import { LOGIN_FORM } from "../../utils/constants/login-form-const";
 import LoginInput from "./inputs/LoginInput";
 import TitleInputForm from "./TitleInputForm";
 
-const TITLE = {
-  EMAIL: "이메일",
-  PASSWORD: "비밀번호",
-};
-const SECURE = {
-  EMAIL: false,
-  PASSWORD: true,
-};
-const VAL_MSG = {
-  EMAIL:
-    "이메일 형식을 지켜주세요.(@ 포함)\n존재하지 않은 이메일을 사용하면 비밀번호를 초기화할 수 없습니다.",
-  PASSWORD: "6 자 이상을 입력하세요.",
-};
 export default function LoginForm({ text, setText, type }) {
   return (
     <View style={styles.container}>
-      <TitleInputForm title={TITLE[type]}>
+      <TitleInputForm title={LOGIN_FORM.TITLE[type]}>
         <LoginInput
           text={text}
           setText={setText}
-          title={TITLE[type]}
-          secure={SECURE[type]}
+          title={LOGIN_FORM.TITLE[type]}
+          secure={LOGIN_FORM.SECURE[type]}
         />
       </TitleInputForm>
-      <Text style={styles.msg}>{VAL_MSG[type]}</Text>
+      <Text style={styles.msg}>{LOGIN_FORM.VAL_MSG[type]}</Text>
     </View>
   );
 }
