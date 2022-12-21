@@ -15,10 +15,6 @@
 
 모든 일기는 사용자의 디바이스에 저장되어 프라이빗하게 관리됩니다.
 
-![Dec-09-2022 16-55-21](https://user-images.githubusercontent.com/79842380/206652921-04f90cc4-f136-40ae-8475-7b105cfc78b0.gif)
-
-![Dec-09-2022 16-55-15](https://user-images.githubusercontent.com/79842380/206652935-25dc2cdf-bcc2-4c2f-852f-25334179642b.gif)
-
 ## 사용 기술
 
 - FE: React Native, Expo
