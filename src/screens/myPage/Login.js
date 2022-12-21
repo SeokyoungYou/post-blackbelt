@@ -10,7 +10,7 @@ import {
   getStorageFirebaseUser,
   removeStorageFirebaseUser,
   saveStorageFirebaseUser,
-} from "../../utils/async-storage/user-async";
+} from "../../utils/local-storage-fn/user-async";
 
 export default function Login({ navigation }) {
   const [asnycEmail, setAsnycEmail] = useState("");

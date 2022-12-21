@@ -4,7 +4,7 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import { TECH_CAT } from "../../constants/tech-category-constants";
 import { theme } from "../../theme";
-import { getDiaryIdByTechCategory } from "../../utils/sql-db";
+import { getDiaryIdByTechCategory } from "../../utils/local-storage-fn/sql-db";
 
 export default function TechPieChart() {
   const [dataArr, setDataArr] = useState([]);

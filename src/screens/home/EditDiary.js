@@ -13,7 +13,7 @@ import {
   getDiaryByDate,
   saveNewDiary,
   updateDiaryById,
-} from "../../utils/sql-db";
+} from "../../utils/local-storage-fn/sql-db";
 import { DIARY_INPUT, DIARY_KEYS } from "../../constants/edit-diary-constants";
 import { handleAlert } from "../../utils/react-native-utils";
 import DiaryCatListPicker from "../../components/pickers/DiaryCatListPicker";

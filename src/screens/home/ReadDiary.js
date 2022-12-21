@@ -6,7 +6,10 @@ import { SCREEN_NAME, TAB_NAME } from "../../constants/screen-constants";
 import DiaryFull from "../../components/diary/DiaryFull";
 import { theme } from "../../theme";
 import { handleAlert } from "../../utils/react-native-utils";
-import { deleteDiaryById, getDiaryById } from "../../utils/sql-db";
+import {
+  deleteDiaryById,
+  getDiaryById,
+} from "../../utils/local-storage-fn/sql-db";
 
 export default function ReadDiary({ route, navigation }) {
   const diaryId = route.params.diary.id;

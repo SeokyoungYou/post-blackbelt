@@ -3,8 +3,8 @@ import { theme } from "../../theme";
 import {
   removeStorageData,
   STORAGE_KEY,
-} from "../../utils/async-storage/diary-async";
-import { deleteAllSQLData } from "../../utils/sql-db";
+} from "../../utils/local-storage-fn/diary-async";
+import { deleteAllSQLData } from "../../utils/local-storage-fn/sql-db";
 
 export default function Admin({ navigation }) {
   const handleRemoveUserData = () => {

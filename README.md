@@ -28,6 +28,42 @@
 
 > [React Navtive 선정 계기](https://velog.io/@skyu_dev/Post-Black-Belt2-앱-만드는데-왜-프론트엔드-개발자를-뽑을까-Web-App-개발기)
 
+## 프로젝트 폴더 구조
+
+```
+📦src
+ ┣ 📂components         // React-native components
+ ┃ ┣ 📂diary
+ ┃ ┣ 📂forms
+ ┃ ┃ ┣ 📂inputs
+ ┃ ┣ 📂headers
+ ┃ ┣ 📂pickers
+ ┃ ┗ 📂user
+ ┣ 📂constants
+ ┣ 📂navigation         // Stack, Tab navigation components
+ ┣ 📂screens            // Screen Components
+ ┃ ┣ 📂home
+ ┃ ┣ 📂myPage
+ ┃ ┗ 📂techTree
+ ┣ 📂utils
+ ┃ ┣ 📂local-storage-fn // async-storage, sql-db functions
+ ┃ ┣ 📂firebase-fn
+ ┣ 📜App.js
+ ┗ 📜theme.js
+```
+
+## 개발 시 고민한 내용들
+
+### 1. 컴포넌트 재사용성
+
+- forms, inputs, pickers
+
+### 2. 캘린더 UI
+
+- 여러 캘린더 앱 비교하면서 리렌더링 발생 시기 비교
+
+### 3. 사용자 피드백 반영
+
 ## 화면별 기능 목록
 
 ### Version 1

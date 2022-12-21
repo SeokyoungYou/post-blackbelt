@@ -3,7 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { theme } from "../../theme";
 import { DIARY_CAT_IMG_SRC } from "../../constants/diary-category-constants";
-import { getDiaryByDate, getDiaryById } from "../../utils/sql-db";
+import {
+  getDiaryByDate,
+  getDiaryById,
+} from "../../utils/local-storage-fn/sql-db";
 import { TECH_CAT_MAP } from "../../constants/tech-category-constants";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 

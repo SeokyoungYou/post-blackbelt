@@ -6,7 +6,7 @@ import DiaryBrief from "../../components/diary/DiaryBrief";
 import HomeProfile from "../../components/user/HomeProfile";
 import DiaryCalendar from "../../components/diary/DiaryCalendar";
 import AddDiaryBtn from "../../components/diary/AddDiaryBtn";
-import { createTable } from "../../utils/sql-db";
+import { createTable } from "../../utils/local-storage-fn/sql-db";
 import {
   daysInMonth,
   getFormattedToday,

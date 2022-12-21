@@ -9,7 +9,7 @@ import {
   AsyncFirebaseUser,
   saveStorageFirebaseUser,
   removeStorageFirebaseUser,
-} from "../async-storage/user-async";
+} from "../local-storage-fn/user-async";
 
 export class FirebaseUser {
   #email;

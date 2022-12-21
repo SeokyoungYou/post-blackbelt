@@ -11,7 +11,7 @@ import {
 } from "../../utils/date-fn";
 import { updateSelectedDate } from "../../utils/store";
 import { theme } from "../../theme";
-import { getMonthlyDiarys } from "../../utils/sql-db";
+import { getMonthlyDiarys } from "../../utils/local-storage-fn/sql-db";
 
 export default function DiaryCalendar(props) {
   const today = getFormattedToday();

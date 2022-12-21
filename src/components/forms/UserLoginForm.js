@@ -12,7 +12,7 @@ import {
   LOGIN_MSG,
   LOGIN_TYPE,
   RESET_PASSWORD_MSG,
-} from "../../utils/constants/login-form-const";
+} from "../../constants/login-form-const";
 
 const initialInput = { email: "", password: "" };
 export default function UserLoginForm({ loadUser }) {

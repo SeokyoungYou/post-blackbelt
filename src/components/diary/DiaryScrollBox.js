@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { theme } from "../../theme";
 import { getFormattedToday } from "../../utils/date-fn";
-import { getDiaryIdByTechCategory } from "../../utils/sql-db";
+import { getDiaryIdByTechCategory } from "../../utils/local-storage-fn/sql-db";
 import DiaryBrief from "./DiaryBrief";
 
 export default function DiaryScrollBox({ navigation }) {

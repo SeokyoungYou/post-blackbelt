@@ -6,7 +6,7 @@ import {
   DIARY_CAT_MAP,
 } from "../../constants/diary-category-constants";
 import { TECH_CAT_MAP } from "../../constants/tech-category-constants";
-import { isIncludeKey } from "../../utils/async-storage/diary-async";
+import { isIncludeKey } from "../../utils/local-storage-fn/diary-async";
 
 export default function DiaryFull({ diary }) {
   return (

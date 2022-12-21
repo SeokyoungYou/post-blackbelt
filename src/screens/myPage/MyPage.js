@@ -11,7 +11,7 @@ import backgroundImg from "../../../assets/images/userBackground2.jpg";
 import {
   getStorageUser,
   setDefaultUser,
-} from "../../utils/async-storage/diary-async";
+} from "../../utils/local-storage-fn/diary-async";
 import {
   defaultUser,
   PROMOTION_DATE,
