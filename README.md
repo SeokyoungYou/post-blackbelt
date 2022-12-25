@@ -51,14 +51,29 @@
 # 개발 시 고민한 내용들
 
 ### 1. 컴포넌트 재사용성
+## 1.1 ListPicker 컴포넌트의 재사용성 고려
+- 데모 영상
 
-- forms, inputs, pickers
+![Dec-25-2022 22-24-10](https://user-images.githubusercontent.com/79842380/209470034-4362e1ed-5066-4bad-b275-f9a7a926cdb2.gif)
+
+- 코드 구현
+
+![image](https://user-images.githubusercontent.com/79842380/209470073-bd89f1f2-8f57-49fc-b1c5-d357f4c7e8d0.png)
+
+
+>[[React Design Pattern] 변경에 유연한 Picker Component 만들기](https://velog.io/@skyu_dev/React-Design-Pattern-변경에-유연한-Picker-Component-만들기)
+
+## 1.2 Forms & Inputs 컴포넌트의 재사용성 고려
 
 ### 2. 캘린더 UI
 
 - 여러 캘린더 앱 비교하면서 리렌더링 발생 시기 비교
 
 ### 3. 사용자 피드백 반영
+## 3.1 Input마다 정보를 저장 > 모든 사용자 정보를 한 번에 저장
+
+![image](https://user-images.githubusercontent.com/79842380/209470102-bb99d3d9-48f5-46f7-bfcf-6e29a252d684.png)
+
 
 # 화면(Screen)별 기능 목록
 
@@ -179,13 +194,8 @@
 
 ### [Home]
 
-- 로그인 여부 확인 > `Login` 리다이렉트
+- 로그인 여부 확인 > `Login` 리다이렉트 ✅
 
-### [Edit Diray]
-
-1. 유튜브 등 링크 저장
-   - 해당 앱/브라우저로 바로 이동
-   - DiaryBrief에서 링크 있는 일기는 dot 표시
 
 ### [My page]
 
@@ -195,13 +205,19 @@
      - 2.1.1 Firebase이메일/비밀번호 로그인(로그인, 로그아웃, 비밀번호 초기화) ✅
      - 2.1.2 사용자 정보 async-stroage에 저쟝 ✅
    - 2.2 데이터 동기화
-     - 2.2.1 Firebase 서버로 sql-db 일기 데이터 전송/ 가져오기
-     - 2.2.2 한 번 누르면 1 일동안 비활성화하기
+     - 2.2.1 Firebase 서버로 sql-db 일기 데이터 전송/ 가져오기 ✅
+     - 2.2.2 한 번 누르면 1 일동안 비활성화하기 ✅
 
 2. 사용자 정보 화면 개선
    - 3.1 다수의 저장 버튼 > 1 개로 변경 ✅
 
 ## Version 1.2
+
+### [Edit Diray]
+
+1. 유튜브 등 링크 저장
+   - 해당 앱/브라우저로 바로 이동
+   - DiaryBrief에서 링크 있는 일기는 dot 표시
 
 ### [Tech tree]
 
