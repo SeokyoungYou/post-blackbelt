@@ -61,7 +61,7 @@
 
 - 코드 구현 방법
 
-![image](https://user-images.githubusercontent.com/79842380/209470073-bd89f1f2-8f57-49fc-b1c5-d357f4c7e8d0.png)
+![image](https://user-images.githubusercontent.com/79842380/209470857-310e1d0e-a234-4e1d-be72-1d949ec1c9e4.png)
 
 - 구현 코드
 
