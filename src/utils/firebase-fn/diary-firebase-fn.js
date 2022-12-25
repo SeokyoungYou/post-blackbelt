@@ -14,7 +14,7 @@ const COLLECTION = {
 export const uploadDiarysToFirebase = async () => {
   getAllDiarys(handleUploadDiarysToFirebase);
 };
-export const handleUploadDiarysToFirebase = async (tx, result) => {
+const handleUploadDiarysToFirebase = async (tx, result) => {
   const diarys = result.rows._array;
   const uploadData = {
     diarys: JSON.stringify(diarys),

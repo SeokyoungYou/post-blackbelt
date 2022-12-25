@@ -1,14 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import SettingHeader from "../../components/headers/SettingHeader";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
-import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-firebase-fn";
+import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-fn";
 import WideBtn from "../../components/btns/WideBtn";
 import { theme } from "../../theme";
 import UserSyncBtns from "../../components/btns/UserSyncBtns";
 import { handleAlert } from "../../utils/react-native-utils";
+import { SETTING_LOGIN } from "../../constants/components-constants";
 
 const LOGOUT_USER = "로그인한 계정이 없습니다.";
 
@@ -49,7 +50,7 @@ export default function Setting({ navigation }) {
       <SettingHeader navigation={navigation} />
       <View style={styles.mainContainer}>
         <View style={styles.subContainer}>
-          <Text>로그인 정보: {asnycEmail}</Text>
+          <Text style={styles.userEmailText}>로그인 정보: {asnycEmail}</Text>
           <Text style={styles.userEmail} />
           {asnycEmail !== LOGOUT_USER ? (
             <View>
@@ -66,13 +67,8 @@ export default function Setting({ navigation }) {
               >
                 계정 만들기 / 로그인
               </WideBtn>
-              <Text style={styles.btnMsg}>
-                데이터 동기화 등 사용자 기능을 사용하려면 로그인해주세요.
-              </Text>
-              <Text style={styles.greyText}>
-                (참고:데이터를 업로드해야 앱을 삭제하여도 일기 데이터를 가져올
-                수 있습니다)
-              </Text>
+              <Text style={styles.btnMsg}>{SETTING_LOGIN.TEXT}</Text>
+              <Text style={styles.greyText}>{SETTING_LOGIN.SUBTEXT}</Text>
             </View>
           )}
         </View>
@@ -84,6 +80,9 @@ export default function Setting({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  userEmailText: {
+    fontSize: 18,
   },
   mainContainer: {
     flex: 4.4,
