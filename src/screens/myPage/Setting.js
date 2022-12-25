@@ -8,6 +8,7 @@ import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-firebase-f
 import WideBtn from "../../components/btns/WideBtn";
 import { theme } from "../../theme";
 import UserSyncBtns from "../../components/btns/UserSyncBtns";
+import { handleAlert } from "../../utils/react-native-utils";
 
 const LOGOUT_USER = "로그인한 계정이 없습니다.";
 
@@ -30,9 +31,17 @@ export default function Setting({ navigation }) {
   };
 
   const handleLogout = async () => {
-    const firebaseUser = getFirebaseUser(asnycEmail);
-    await firebaseUser.logout();
-    await loadUser();
+    handleAlert("로그아웃하시겠습니까?", "", [
+      { text: "취소", onPress: () => {} },
+      {
+        text: "로그아웃",
+        onPress: async () => {
+          const firebaseUser = getFirebaseUser(asnycEmail);
+          await firebaseUser.logout();
+          await loadUser();
+        },
+      },
+    ]);
   };
 
   return (
