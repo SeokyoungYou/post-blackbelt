@@ -13,6 +13,7 @@ import {
   getYearMonthByDate,
 } from "../../utils/date-fn";
 import { SCREEN_NAME } from "../../constants/screen-constants";
+import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
 
 export default function Home({ navigation }) {
   const storeDate = useSelector((state) => state.selectedDate);
@@ -24,9 +25,16 @@ export default function Home({ navigation }) {
   useEffect(
     useCallback(() => {
       createTable();
+      loadAsyncFirebaseUser();
     }, [])
   );
 
+  const loadAsyncFirebaseUser = async () => {
+    const asyncUser = await getStorageFirebaseUser();
+    if (!asyncUser) {
+      navigation.navigate(SCREEN_NAME.LOGIN);
+    }
+  };
   const handleProfilePress = () => {
     navigation.navigate(SCREEN_NAME.MY_PAGE);
   };
