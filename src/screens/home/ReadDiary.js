@@ -10,6 +10,7 @@ import {
   deleteDiaryById,
   getDiaryById,
 } from "../../utils/local-storage-fn/sql-db";
+import HalfBtn from "../../components/btns/HalfBtn";
 
 export default function ReadDiary({ route, navigation }) {
   const diaryId = route.params.diary.id;
@@ -73,12 +74,12 @@ export default function ReadDiary({ route, navigation }) {
         {diary && <DiaryFull diary={diary} />}
       </View>
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.updateBtn} onPress={handleUpdate}>
-          <Text>수정</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteBtn} onPress={handleDelete}>
-          <Text>삭제</Text>
-        </TouchableOpacity>
+        <HalfBtn backgroundColor={theme.skyBlue} onPress={handleUpdate}>
+          수정
+        </HalfBtn>
+        <HalfBtn backgroundColor={theme.pink} onPress={handleDelete}>
+          삭제
+        </HalfBtn>
       </View>
     </View>
   );
@@ -91,19 +92,6 @@ const styles = StyleSheet.create({
   diaryContainer: {
     flex: 5,
     marginTop: 10,
-  },
-  updateBtn: {
-    paddingHorizontal: 50,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: theme.skyBlue,
-    right: 0,
-  },
-  deleteBtn: {
-    paddingHorizontal: 50,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: theme.pink,
   },
   btnContainer: {
     flexDirection: "row",
