@@ -1,39 +1,72 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import SettingHeader from "../../components/headers/SettingHeader";
 import { SCREEN_NAME } from "../../constants/screen-constants";
+import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
+import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-firebase-fn";
+import WideBtn from "../../components/btns/WideBtn";
+import { theme } from "../../theme";
+import UserSyncBtns from "../../components/btns/UserSyncBtns";
+
+const LOGOUT_USER = "로그인한 계정이 없습니다.";
 
 export default function Setting({ navigation }) {
-  useEffect(() => {
-    // getAllDiarys(printResult);
-    // deleteAllSQLData();
-    // loadData();
-  }, []);
+  const [asnycEmail, setAsnycEmail] = useState(LOGOUT_USER);
 
-  // const auth = getAuth();
-  // console.log(input);
-  // createUserWithEmailAndPassword(auth, input.email, input.password)
-  //   .then((userCredential) => {
-  //     // Signed in
-  //     // const { user } = userCredential;
-  //     console.log(userCredential);
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     console.log(error);
-  //     // ..
-  //   });
+  useFocusEffect(
+    useCallback(() => {
+      loadUser();
+    }, [])
+  );
+
+  const loadUser = async () => {
+    const asyncUser = await getStorageFirebaseUser();
+    if (asyncUser) {
+      setAsnycEmail(asyncUser.email);
+    } else {
+      setAsnycEmail(LOGOUT_USER);
+    }
+  };
+
+  const handleLogout = async () => {
+    const firebaseUser = getFirebaseUser(asnycEmail);
+    await firebaseUser.logout();
+    await loadUser();
+  };
 
   return (
     <View style={styles.container}>
       <SettingHeader navigation={navigation} />
       <View style={styles.mainContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(SCREEN_NAME.LOGIN)}
-        >
-          <Text>Login</Text>
-        </TouchableOpacity>
+        <View style={styles.subContainer}>
+          <Text>로그인 정보: {asnycEmail}</Text>
+          <Text style={styles.userEmail} />
+          {asnycEmail !== LOGOUT_USER ? (
+            <View>
+              <UserSyncBtns userEmail={asnycEmail} />
+              <WideBtn onPress={handleLogout} backgroundColor={theme.pink}>
+                로그아웃
+              </WideBtn>
+            </View>
+          ) : (
+            <View>
+              <WideBtn
+                backgroundColor={theme.purpleLight}
+                onPress={() => navigation.navigate(SCREEN_NAME.LOGIN)}
+              >
+                계정 만들기 / 로그인
+              </WideBtn>
+              <Text style={styles.btnMsg}>
+                데이터 동기화 등 사용자 기능을 사용하려면 로그인해주세요.
+              </Text>
+              <Text style={styles.greyText}>
+                (참고:데이터를 업로드해야 앱을 삭제하여도 일기 데이터를 가져올
+                수 있습니다)
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -45,7 +78,17 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 4.4,
-    alignItems: "center",
     padding: 25,
+  },
+  subContainer: {
+    // alignItems: "center",
+    width: "100%",
+  },
+  btnMsg: {
+    color: theme.grey,
+    marginTop: 5,
+  },
+  greyText: {
+    color: theme.grey,
   },
 });

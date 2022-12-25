@@ -54,6 +54,20 @@ export const getSQLData = (queryKey, handleSuccess = printResult) => {
   }
 };
 
+export const getAllDiarys = (handleSuccess = printResult) => {
+  try {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT ${TB.ALL} FROM ${TB_NAME}`,
+        [],
+        handleSuccess,
+        handleError
+      );
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 /**
  *
  * @param {string} yearMonth - YYYY-MM

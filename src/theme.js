@@ -12,6 +12,7 @@ import {
 
 export const theme = {
   black: "#303841",
+  lightgrey: "#D3D3D3",
   grey: "#596065",
   white: "#FFFFFF",
   purpleLight: "#d6c6f2", // rgb(214, 198, 242)

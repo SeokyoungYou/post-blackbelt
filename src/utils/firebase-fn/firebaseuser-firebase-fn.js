@@ -71,14 +71,3 @@ export class FirebaseUser {
 export const getFirebaseUser = (email = "") => {
   return new FirebaseUser(email);
 };
-
-export class FirebasUserInput {
-  #email;
-
-  #password;
-
-  constructor(input) {
-    this.#email = input.email;
-    this.#password = input.password;
-  }
-}

@@ -1,55 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import GoBackHeader from "../../components/headers/GoBackHeader";
 import UserLoginForm from "../../components/forms/UserLoginForm";
-import FirebaseUser, {
-  getFirebaseUser,
-} from "../../utils/firebase-fn/firebaseuser-firebase-fn";
-import {
-  getStorageFirebaseUser,
-  removeStorageFirebaseUser,
-  saveStorageFirebaseUser,
-} from "../../utils/local-storage-fn/user-async";
 
 export default function Login({ navigation }) {
-  const [asnycEmail, setAsnycEmail] = useState("");
-  // const firebaseUser = "";
-  // const firebaseUser = new FirebaseUser();
-  useEffect(() => {
-    // removeStorageFirebaseUser();
-    loadUser();
-  }, []);
-
-  const loadUser = async () => {
-    const asyncUser = await getStorageFirebaseUser();
-    if (asyncUser) {
-      setAsnycEmail(asyncUser.email);
-    } else {
-      setAsnycEmail("");
-    }
-  };
-  const handleLogout = async () => {
-    const firebaseUser = await getFirebaseUser(asnycEmail);
-    await firebaseUser.logout();
-    await loadUser();
-  };
-
-  // dispatch(updateUserEmail(""));
   return (
     <View style={styles.container}>
       <GoBackHeader navigation={navigation} title="계정 로그인 정보" />
       <View style={styles.mainContainer}>
-        {asnycEmail ? (
-          <View>
-            <Text>user: {asnycEmail}</Text>
-            <TouchableOpacity onPress={handleLogout}>
-              <Text>로그아웃</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <UserLoginForm loadUser={loadUser} />
-        )}
+        <UserLoginForm navigation={navigation} />
       </View>
     </View>
   );

@@ -13,9 +13,29 @@ import {
   LOGIN_TYPE,
   RESET_PASSWORD_MSG,
 } from "../../constants/login-form-const";
+import { SCREEN_NAME } from "../../constants/screen-constants";
+
+// class UserForm {
+//   #email;
+
+//   #password;
+
+//   constructor(email, password) {
+//     this.#email = email;
+//     this.#password = password;
+//   }
+
+//   get email() {
+//     return this.#email;
+//   }
+
+//   get password() {
+//     return this.#password;
+//   }
+// }
 
 const initialInput = { email: "", password: "" };
-export default function UserLoginForm({ loadUser }) {
+export default function UserLoginForm({ navigation }) {
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
   const [input, setInput] = useState(initialInput);
   const [msg, setMsg] = useState("");
@@ -54,52 +74,42 @@ export default function UserLoginForm({ loadUser }) {
     return true;
   };
 
-  const handleSignUp = async () => {
-    if (validateSubmit()) {
-      try {
-        const firebaseUser = getFirebaseUser();
-        await firebaseUser.signUp(input);
-        setMsg(LOGIN_MSG.SUCCESS);
-        await loadUser();
-      } catch (error) {
-        setMsg(`${LOGIN_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`);
-      }
+  const handleAuth = async (authMethod) => {
+    if (!validateSubmit()) {
+      return;
     }
-  };
 
-  const handleLogin = async () => {
-    if (validateSubmit()) {
-      try {
-        const firebaseUser = getFirebaseUser();
-        await firebaseUser.login(input);
-        setMsg(LOGIN_MSG.SUCCESS);
-        await loadUser();
-      } catch (error) {
-        setMsg(`${LOGIN_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`);
-      }
+    try {
+      const firebaseUser = getFirebaseUser();
+      await firebaseUser[authMethod](input);
+      setMsg(LOGIN_MSG.SUCCESS);
+      navigation.navigate(SCREEN_NAME.SETTING);
+    } catch (error) {
+      setMsg(`${LOGIN_MSG.FAIL}\n에러 코드:${JSON.stringify(error.code)}`);
     }
   };
 
   const handleResetPassword = async () => {
-    if (validateEmail()) {
-      try {
-        const firebaseUser = getFirebaseUser(input.email);
-        await firebaseUser.resetPassword();
-        setMsg(RESET_PASSWORD_MSG.SUCCESS);
-      } catch (error) {
-        setMsg(
-          `${RESET_PASSWORD_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`
-        );
-      }
+    if (!validateEmail()) {
+      return;
+    }
+    try {
+      const firebaseUser = getFirebaseUser(input.email);
+      await firebaseUser.resetPassword();
+      setMsg(RESET_PASSWORD_MSG.SUCCESS);
+    } catch (error) {
+      setMsg(
+        `${RESET_PASSWORD_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`
+      );
     }
   };
 
   const handleSubmit = {
     SIGN_UP() {
-      handleSignUp();
+      handleAuth("signUp");
     },
     LOGIN() {
-      handleLogin();
+      handleAuth("login");
     },
     REST_PASSWORD() {
       handleResetPassword();
@@ -131,7 +141,7 @@ export default function UserLoginForm({ loadUser }) {
       >
         <Text>{BTN_TEXT[formState]}</Text>
       </TouchableOpacity>
-      <Text>{msg}</Text>
+      <Text style={styles.msg}>{msg}</Text>
 
       <View style={styles.changeState}>
         {CHANGE_STATE.map((element) => {
@@ -179,5 +189,9 @@ const styles = StyleSheet.create({
     color: theme.purpleDark,
     fontSize: 16,
     marginLeft: 10,
+  },
+  msg: {
+    marginTop: 10,
+    color: theme.red,
   },
 });

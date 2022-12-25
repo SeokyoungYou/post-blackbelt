@@ -19,7 +19,7 @@ export default function SettingHeader({ navigation }) {
     left: {
       icon: "chevron-left",
       iconColor: "black",
-      onPress: () => navigation.goBack(),
+      onPress: () => navigation.navigate(SCREEN_NAME.MY_PAGE),
     },
     title: `${SCREEN_NAME.SETTING}`,
     right: {
