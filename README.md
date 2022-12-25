@@ -51,100 +51,181 @@
 # 개발 시 고민한 내용들
 
 ### 1. 컴포넌트 재사용성
-## 1.1 ListPicker 컴포넌트의 재사용성 고려
+
+#### 1.1 ListPicker 컴포넌트의 재사용성 고려
+
+- 컴포넌트 분리 목적: 데이터 처리 로직이 유사한 2 개의 `ListPicker` 컴포넌트의 재사용성을 고려. 변경에 더 유연하도록 리팩토링
 - 데모 영상
 
 ![Dec-25-2022 22-24-10](https://user-images.githubusercontent.com/79842380/209470034-4362e1ed-5066-4bad-b275-f9a7a926cdb2.gif)
 
-- 코드 구현
+- 코드 구현 방법
 
 ![image](https://user-images.githubusercontent.com/79842380/209470073-bd89f1f2-8f57-49fc-b1c5-d357f4c7e8d0.png)
 
+- 구현 코드
 
->[[React Design Pattern] 변경에 유연한 Picker Component 만들기](https://velog.io/@skyu_dev/React-Design-Pattern-변경에-유연한-Picker-Component-만들기)
+  1.  도메인 분리하기
 
-## 1.2 Forms & Inputs 컴포넌트의 재사용성 고려
+      **`ListPicker`: 반복되는 디자인, 데이터 처리 담당**
+
+      - 디자인의 반복: 카테고리를 리스트 형태로 나열 & 사용자의 선택 항목만 `updateActiveIconOpacity` 함수를 사용하여 opacity 높임
+      - 데이터 처리의 반복: 사용자가 선택한 항목을 `dispatch` 함수를 사용하여 전역 상태 관리
+
+  ```jsx
+  export default function ListPicker({ items, dispatch, jsx }) {
+    const opacityArr = Array(items.length).fill(ICON_OPACITY.INACTIVE);
+    const [iconsOpacity, setIconOpacity] = useState(opacityArr);
+
+    const updateActiveIconOpacity = (i) => {
+      setIconOpacity(() => {
+        const result = opacityArr;
+        result[i] = ICON_OPACITY.ACTIVE;
+        return result;
+      });
+    };
+
+    const handleOnPress = (CAT, i) => {
+      updateActiveIconOpacity(i);
+      dispatch(CAT.ID);
+    };
+    return (
+      <>
+        {items.map((CAT, i) => {
+          return (
+            <Pressable
+              key={CAT.ID}
+              style={{ opacity: iconsOpacity[i] }}
+              onPress={handleOnPress.bind(this, CAT, i)}
+            >
+              {jsx(CAT)}
+            </Pressable>
+          );
+        })}
+      </>
+    );
+  }
+  ```
+
+  2.  데이터 로직 주입하기
+  3.  UI 로직 주입하기
+
+      **`DiaryCatListPicker: `ListPicker` 컴포넌트에 데이터와 UI로직을 주입하여 구현`**
+
+      - items: `ListPicker`에 주입될 데이터
+      - dispatch: `ListPicker`의 데이터를 처리할 로직
+      - jsx: `ListPicker`의 UI를 담당하는 리액트 컴포넌트(컴포넌트 합성)
+
+  ```jsx
+  export default function DiaryCatListPicker() {
+    return (
+      <View style={styles.container}>
+        <ListPicker
+          items={DIARY_CAT}
+          dispatch={dispatchPressedCategory}
+          jsx={DiaryJSX}
+        />
+      </View>
+    );
+  }
+
+  const DiaryJSX = (CAT) => {
+    return (
+      <View style={styles.diaryCategory}>
+        <Image style={styles.diaryCategoryImg} source={CAT.IMG_SRC} />
+        <Text style={styles.diaryCategoryTitle}>{CAT.KOR}</Text>
+      </View>
+    );
+  };
+  ```
+
+> [[React Design Pattern] 변경에 유연한 Picker Component 만들기](https://velog.io/@skyu_dev/React-Design-Pattern-변경에-유연한-Picker-Component-만들기)
+
+#### 1.2 Forms & Inputs 컴포넌트의 재사용성 고려
 
 ### 2. 캘린더 UI
 
 - 여러 캘린더 앱 비교하면서 리렌더링 발생 시기 비교
 
 ### 3. 사용자 피드백 반영
+
 ## 3.1 Input마다 정보를 저장 > 모든 사용자 정보를 한 번에 저장
 
 ![image](https://user-images.githubusercontent.com/79842380/209470102-bb99d3d9-48f5-46f7-bfcf-6e29a252d684.png)
-
 
 # 화면(Screen)별 기능 목록
 
 ## Version 1
 
 ### [공통]
-   - 구현 데모 
 
-   ![Dec-21-2022 15-58-49](https://user-images.githubusercontent.com/79842380/208842623-f539bf47-b00c-495d-906d-132fc4190d3e.gif)
+- 구현 데모
+
+![Dec-21-2022 15-58-49](https://user-images.githubusercontent.com/79842380/208842623-f539bf47-b00c-495d-906d-132fc4190d3e.gif)
+
 #### 1. 하단 네비게이션바
-   - 1.1 Home / My page / Tech tree 간 이동 ✅
-   - 1.2 페이지에 따라 아이콘 색깔 변경 ✅
-   - package: react-navigation
 
+- 1.1 Home / My page / Tech tree 간 이동 ✅
+- 1.2 페이지에 따라 아이콘 색깔 변경 ✅
+- package: react-navigation
 
-   
 #### 2. 개발자 모드 ✅
-   - 전체 유저 데이터 삭제
-   - 전체 일기 삭제
+
+- 전체 유저 데이터 삭제
+- 전체 일기 삭제
+
 #### 3. 상단 바 색상 변경 ✅ (iOS 불가)
 
 ### [Home(Diary Calendar)]
+
 - 구현 데모
 
 ![Dec-21-2022 16-09-42](https://user-images.githubusercontent.com/79842380/208842778-34f40f4d-0db0-4988-813d-dd9724dffcd0.gif)
 
 #### 1. 달력 형식 일기장
 
+- package: react-native-calendars
 
-   - package: react-native-calendars
-
-   - 1.1 날짜에 마킹하기 ✅
-     - 1.1.1 오늘 날짜 ✅
-     - 1.1.2 선택한 날짜 ✅
-       - default: 오늘 날짜 ✅
-     - 1.1.3 일기가 작성된 날짜: 일기 카테고리 아이콘 마킹 ✅
-   - 1.2 선택한 날짜의 일기를 간략하게 하단에 보여주기 ✅
+- 1.1 날짜에 마킹하기 ✅
+  - 1.1.1 오늘 날짜 ✅
+  - 1.1.2 선택한 날짜 ✅
+    - default: 오늘 날짜 ✅
+  - 1.1.3 일기가 작성된 날짜: 일기 카테고리 아이콘 마킹 ✅
+- 1.2 선택한 날짜의 일기를 간략하게 하단에 보여주기 ✅
 
 #### 2. 사용자 정보 컴포넌트
 
-   - 2.1 사용자 정보 가져오기 ✅
-   - 2.2 이번 달 총 수련일 표시 ✅
+- 2.1 사용자 정보 가져오기 ✅
+- 2.2 이번 달 총 수련일 표시 ✅
 
 ### [Edit Diray]
+
 - 구현 데모
 
 ![Dec-21-2022 16-10-11](https://user-images.githubusercontent.com/79842380/208842861-336fe781-7952-4476-8147-44a10f7addd2.gif)
 
-
 #### 1. 일기 작성 및 저장 기능
 
-   - package: expo-sqlite
+- package: expo-sqlite
 
-   - 1.1 날짜 선택 & 플로팅 버튼 클릭 > 일기 작성창 이동 ✅
-   - 1.2 일기 작성창 구현 ✅
-     - 1.2.1 일기 작성 날짜 가져오기 & 헤더 버튼 구현 ✅
-     - 1.2.2 일기 카테고리 / 기술 카테고리 선정 창 ✅
-     - 1.2.3 일기 제약 사항(500 자 이내) ✅
-   - 1.3 일기 로컬 저장소에 저장 ✅
+- 1.1 날짜 선택 & 플로팅 버튼 클릭 > 일기 작성창 이동 ✅
+- 1.2 일기 작성창 구현 ✅
+  - 1.2.1 일기 작성 날짜 가져오기 & 헤더 버튼 구현 ✅
+  - 1.2.2 일기 카테고리 / 기술 카테고리 선정 창 ✅
+  - 1.2.3 일기 제약 사항(500 자 이내) ✅
+- 1.3 일기 로컬 저장소에 저장 ✅
 
 #### 2. 일기 확인 & 수정 & 삭제 기능
 
-   - 2.1 일기 전체 내용 확인(Read) ✅
-   - 2.2 일기 수정 기능(Update) ✅
-     - 로컬 저장소에 존재하는 일기 불러와서 수정
-   - 2.3 일기 삭제 기능(Delete) ✅
+- 2.1 일기 전체 내용 확인(Read) ✅
+- 2.2 일기 수정 기능(Update) ✅
+  - 로컬 저장소에 존재하는 일기 불러와서 수정
+- 2.3 일기 삭제 기능(Delete) ✅
 
 #### 3. 홈화면 재진입 시 초기화
 
-   - 3.1 선택한 날짜(1.1.2) 초기화 ✅
-   - 3.2 달력 페이지 이번 달로 초기화 ✅
+- 3.1 선택한 날짜(1.1.2) 초기화 ✅
+- 3.2 달력 페이지 이번 달로 초기화 ✅
 
 ### [My page]
 
@@ -152,28 +233,27 @@
 
 ![Dec-21-2022 16-11-16](https://user-images.githubusercontent.com/79842380/208842993-c1ef39ef-e930-463e-9590-f32689fcebb2.gif)
 
-
 #### 1. 사용자 개인 정보 확인
 
-   - package: react-native-async-storage
+- package: react-native-async-storage
 
-   - 1.1 사용자 이름, 소속, 사용자 목표: 올해 & 이 달 ✅
-   - 1.2 사용자 벨트 정보 ✅
-   - 1.3 사용자 주짓수 시작 날짜,최근 승급일 ✅
+- 1.1 사용자 이름, 소속, 사용자 목표: 올해 & 이 달 ✅
+- 1.2 사용자 벨트 정보 ✅
+- 1.3 사용자 주짓수 시작 날짜,최근 승급일 ✅
 
 #### 2. 사용자 정보 수정 기능
 
-   - 1.1 사용자 이름, 소속, 사용자 목표: 올해 & 이 달 ✅
-   - 1.2 사용자 벨트 정보 ✅
-     - package: react-native-picker
-   - 1.3 사용자 주짓수 시작 날짜,최근 승급일 ✅
-     - package:react-native-community/datetimepicker
+- 1.1 사용자 이름, 소속, 사용자 목표: 올해 & 이 달 ✅
+- 1.2 사용자 벨트 정보 ✅
+  - package: react-native-picker
+- 1.3 사용자 주짓수 시작 날짜,최근 승급일 ✅
+  - package:react-native-community/datetimepicker
 
 #### 3. 사용자 기술 분포도
 
-   - 3.1 기술 분포 파이 차트 ✅
-     - package: react-native-chart-kit
-   - 3.2 저장된 일기 개수로 기술 분포 파악 ✅
+- 3.1 기술 분포 파이 차트 ✅
+  - package: react-native-chart-kit
+- 3.2 저장된 일기 개수로 기술 분포 파악 ✅
 
 ### [Tech tree]
 
@@ -181,21 +261,19 @@
 
 ![Dec-21-2022 16-11-46](https://user-images.githubusercontent.com/79842380/208843071-a77e7962-2954-4301-9ea3-f70cb59ecced.gif)
 
-   - 1.1 상세 기술 선택 화면으로 이동 ✅
-   - 1.2 사용자 정보 가져오기: 사진 & 이름 ✅
-
+- 1.1 상세 기술 선택 화면으로 이동 ✅
+- 1.2 사용자 정보 가져오기: 사진 & 이름 ✅
 
 ### [Tech Detail]
 
-   - 1.1 관련 일기 출력 ✅
-   - 2.2 스크롤로 컨테이너로 일기 감싸기 ✅
+- 1.1 관련 일기 출력 ✅
+- 2.2 스크롤로 컨테이너로 일기 감싸기 ✅
 
 ## Version 1.1
 
 ### [Home]
 
 - 로그인 여부 확인 > `Login` 리다이렉트 ✅
-
 
 ### [My page]
 
