@@ -4,16 +4,17 @@ import { useFocusEffect } from "@react-navigation/native";
 import SettingHeader from "../../components/headers/SettingHeader";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
-import { getFirebaseUser } from "../../class/AuthService-firebase";
 import WideBtn from "../../components/btns/WideBtn";
 import { theme } from "../../theme";
 import UserSyncBtns from "../../components/btns/UserSyncBtns";
 import { handleAlert } from "../../utils/react-native-utils";
 import { SETTING_LOGIN } from "../../constants/components-constants";
+import { useAuth } from "../../context/AuthProvider";
 
 const LOGOUT_USER = "로그인한 계정이 없습니다.";
 
 export default function Setting({ navigation }) {
+  const auth = useAuth();
   const [asnycEmail, setAsnycEmail] = useState(LOGOUT_USER);
 
   useFocusEffect(
@@ -37,8 +38,7 @@ export default function Setting({ navigation }) {
       {
         text: "로그아웃",
         onPress: async () => {
-          const firebaseUser = getFirebaseUser(asnycEmail);
-          await firebaseUser.logout();
+          await auth.logout();
           await loadUser();
         },
       },
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   subContainer: {
-    // alignItems: "center",
     width: "100%",
   },
   btnMsg: {

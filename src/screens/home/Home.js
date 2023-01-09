@@ -14,8 +14,10 @@ import {
 } from "../../utils/date-fn";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function Home({ navigation }) {
+  const auth = useAuth();
   const storeDate = useSelector((state) => state.selectedDate);
   const [countDiary, setCountDiary] = useState(0);
   const [currYearMonth, setCurrYearMonth] = useState(
@@ -32,8 +34,9 @@ export default function Home({ navigation }) {
   const loadAsyncFirebaseUser = async () => {
     const asyncUser = await getStorageFirebaseUser();
     if (!asyncUser) {
-      navigation.navigate(SCREEN_NAME.LOGIN);
+      return navigation.navigate(SCREEN_NAME.LOGIN);
     }
+    auth.localLogin(asyncUser.email);
   };
   const handleProfilePress = () => {
     navigation.navigate(SCREEN_NAME.MY_PAGE);

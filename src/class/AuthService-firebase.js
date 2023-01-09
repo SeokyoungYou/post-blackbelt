@@ -13,12 +13,16 @@ import {
 export default class AuthService {
   #email;
 
-  constructor(email) {
-    this.#email = email;
+  constructor() {
+    this.#email = "";
   }
 
   get email() {
     return this.#email;
+  }
+
+  localLogin(email) {
+    this.#email = email;
   }
 
   async signUp(input) {
@@ -45,8 +49,8 @@ export default class AuthService {
     this.#removeAsyncStorageUser();
   }
 
-  async resetPassword() {
-    await sendPasswordResetEmail(authService, this.#email);
+  async resetPassword(email) {
+    await sendPasswordResetEmail(authService, email);
   }
 
   async #handleFetchUser(fetchUser) {
@@ -64,7 +68,3 @@ export default class AuthService {
     removeStorageFirebaseUser();
   }
 }
-
-export const getFirebaseUser = (email = "") => {
-  return new AuthService(email);
-};

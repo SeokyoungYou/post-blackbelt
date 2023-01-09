@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-
+import { useAuth } from "../../context/AuthProvider";
 import LoginForm from "./LoginForm";
 import { theme } from "../../theme";
-import { getFirebaseUser } from "../../class/AuthService-firebase";
 import {
   BTN_TEXT,
   CHANGE_STATE,
@@ -15,27 +14,9 @@ import {
 } from "../../constants/login-form-const";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 
-// class UserForm {
-//   #email;
-
-//   #password;
-
-//   constructor(email, password) {
-//     this.#email = email;
-//     this.#password = password;
-//   }
-
-//   get email() {
-//     return this.#email;
-//   }
-
-//   get password() {
-//     return this.#password;
-//   }
-// }
-
 const initialInput = { email: "", password: "" };
 export default function UserLoginForm({ navigation }) {
+  const auth = useAuth();
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
   const [input, setInput] = useState(initialInput);
   const [msg, setMsg] = useState("");
@@ -58,6 +39,7 @@ export default function UserLoginForm({ navigation }) {
     }
     return true;
   };
+
   const validatePassword = () => {
     const { password } = input;
     if (!password || password.length < 6) {
@@ -80,8 +62,7 @@ export default function UserLoginForm({ navigation }) {
     }
 
     try {
-      const firebaseUser = getFirebaseUser();
-      await firebaseUser[authMethod](input);
+      await auth[authMethod](input);
       setMsg(LOGIN_MSG.SUCCESS);
       navigation.navigate(SCREEN_NAME.SETTING);
     } catch (error) {
@@ -93,9 +74,9 @@ export default function UserLoginForm({ navigation }) {
     if (!validateEmail()) {
       return;
     }
+
     try {
-      const firebaseUser = getFirebaseUser(input.email);
-      await firebaseUser.resetPassword();
+      await auth.resetPassword(input.email);
       setMsg(RESET_PASSWORD_MSG.SUCCESS);
     } catch (error) {
       setMsg(
