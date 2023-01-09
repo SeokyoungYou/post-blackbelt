@@ -1,50 +1,25 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useAuth } from "../../context/AuthProvider";
-import LoginForm from "./LoginForm";
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import LoginForm from "./authForm/LoginForm";
 import { theme } from "../../theme";
 import {
-  BTN_TEXT,
-  CHANGE_STATE,
   FORM_STATE,
   FORM_TITLE,
   LOGIN_TYPE,
 } from "../../constants/login-form-const";
-import useAuthForm from "../../hooks/useAuthForm";
+import AuthSubmit from "./authForm/AuthSubmit";
+import ChangeFormState from "./authForm/ChangeFormState";
 
 const initialInput = { email: "", password: "" };
-export default function UserLoginForm({ navigation }) {
-  const {
-    formMsg,
-    resetFormMsg,
-    useSignUpForm,
-    useLoginForm,
-    useResetPassword,
-  } = useAuthForm(navigation);
 
+export default function UserLoginForm({ navigation }) {
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
   const [input, setInput] = useState(initialInput);
-
-  useEffect(() => {
-    resetFormMsg();
-  }, [formState]);
 
   const setInputByType = (type, payload) => {
     setInput((prev) => {
       return { ...prev, [type]: payload };
     });
-  };
-
-  const handleSubmit = {
-    SIGN_UP() {
-      useSignUpForm(input);
-    },
-    LOGIN() {
-      useLoginForm(input);
-    },
-    REST_PASSWORD() {
-      useResetPassword(input.email);
-    },
   };
 
   return (
@@ -66,28 +41,8 @@ export default function UserLoginForm({ navigation }) {
         />
       )}
 
-      <TouchableOpacity
-        onPress={handleSubmit[formState]}
-        style={styles.submitBtn}
-      >
-        <Text>{BTN_TEXT[formState]}</Text>
-      </TouchableOpacity>
-      <Text style={styles.msg}>{formMsg}</Text>
-
-      <View style={styles.changeState}>
-        {CHANGE_STATE.map((element) => {
-          return (
-            <TouchableOpacity
-              onPress={() => setFormState(element.STATE_NAME)}
-              style={styles.changeStateWrapper}
-              key={element.STATE_NAME}
-            >
-              <Text style={styles.changeTitle}>{element.TITLE}</Text>
-              <Text style={styles.changeMsg}>{element.CHANGE_MSG}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <AuthSubmit formState={formState} navigation={navigation} input={input} />
+      <ChangeFormState setFormState={setFormState} />
     </View>
   );
 }
@@ -105,22 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
   },
-  changeState: {
-    marginTop: 20,
-  },
-  changeStateWrapper: {
-    flexDirection: "row",
-    marginBottom: 10,
-    alignItems: "center",
-  },
-  changeTitle: {
-    color: "grey",
-  },
-  changeMsg: {
-    color: theme.purpleDark,
-    fontSize: 16,
-    marginLeft: 10,
-  },
+
   msg: {
     marginTop: 10,
     color: theme.red,

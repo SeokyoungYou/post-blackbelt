@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
-import { LOGIN_FORM } from "../../constants/login-form-const";
-import LoginInput from "./inputs/LoginInput";
-import TitleInputForm from "./TitleInputForm";
+import { LOGIN_FORM } from "../../../constants/login-form-const";
+import LoginInput from "../inputs/LoginInput";
+import TitleInputForm from "../TitleInputForm";
 
 export default function LoginForm({ text, setText, type }) {
   return (
