@@ -5,6 +5,7 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ authService, children }) {
+  const email = authService.email.bind(authService);
   const localLogin = authService.localLogin.bind(authService);
   const login = authService.login.bind(authService);
   const signUp = authService.signUp.bind(authService);
@@ -13,6 +14,7 @@ export function AuthProvider({ authService, children }) {
   return (
     <AuthContext.Provider
       value={{
+        email,
         localLogin,
         login,
         signUp,

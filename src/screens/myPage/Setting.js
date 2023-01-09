@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import SettingHeader from "../../components/headers/SettingHeader";
 import { SCREEN_NAME } from "../../constants/screen-constants";
-import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
 import WideBtn from "../../components/btns/WideBtn";
 import { theme } from "../../theme";
 import UserSyncBtns from "../../components/btns/UserSyncBtns";
@@ -15,7 +14,7 @@ const LOGOUT_USER = "로그인한 계정이 없습니다.";
 
 export default function Setting({ navigation }) {
   const auth = useAuth();
-  const [asnycEmail, setAsnycEmail] = useState(LOGOUT_USER);
+  const [email, setEmail] = useState(LOGOUT_USER);
 
   useFocusEffect(
     useCallback(() => {
@@ -24,12 +23,7 @@ export default function Setting({ navigation }) {
   );
 
   const loadUser = async () => {
-    const asyncUser = await getStorageFirebaseUser();
-    if (asyncUser) {
-      setAsnycEmail(asyncUser.email);
-    } else {
-      setAsnycEmail(LOGOUT_USER);
-    }
+    setEmail(auth.email() || LOGOUT_USER);
   };
 
   const handleLogout = async () => {
@@ -50,11 +44,11 @@ export default function Setting({ navigation }) {
       <SettingHeader navigation={navigation} />
       <View style={styles.mainContainer}>
         <View style={styles.subContainer}>
-          <Text style={styles.userEmailText}>로그인 정보: {asnycEmail}</Text>
+          <Text style={styles.userEmailText}>로그인 정보: {email}</Text>
           <Text style={styles.userEmail} />
-          {asnycEmail !== LOGOUT_USER ? (
+          {email !== LOGOUT_USER ? (
             <View>
-              <UserSyncBtns userEmail={asnycEmail} />
+              <UserSyncBtns userEmail={email} />
               <WideBtn onPress={handleLogout} backgroundColor={theme.pink}>
                 로그아웃
               </WideBtn>

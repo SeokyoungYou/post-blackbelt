@@ -17,7 +17,7 @@ export default class AuthService {
     this.#email = "";
   }
 
-  get email() {
+  email() {
     return this.#email;
   }
 
@@ -40,7 +40,7 @@ export default class AuthService {
       input.email,
       input.password
     );
-    this.#handleFetchUser(loginData);
+    await this.#handleFetchUser(loginData);
   }
 
   async logout() {
