@@ -1,6 +1,6 @@
 # Post Black Belt 앱 소개
 
-[구글 플레이스토어 출시 링크](https://play.google.com/store/apps/details?id=com.quartz_u.postblackbelt)
+[구글 플레이스토어 출시 링크](https://play.google.com/store/apps/details?id=com.quartz.postblackbelt)
 
 ## 서비스 개발 배경 및 소개
 
@@ -17,10 +17,38 @@
 
 ## 사용 기술
 
-- FE: React Native, Expo
-- Design tool: Figma
+### FE
 
-- Git | Format of the commit message: [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
+<div style="float: left;">
+  <img src="https://img.shields.io/badge/react native-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+  <img src="https://img.shields.io/badge/expo-black?style=for-the-badge&logo=expo&logoColor=white"> 
+  <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=expo&logoColor=white"> 
+</div>
+
+### BE & local DB
+
+<div style="float: left;">
+  <img src="https://img.shields.io/badge/firebase-firestore database-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"> 
+  <img src="https://img.shields.io/badge/firebase-authentication-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"> 
+  <img src="https://img.shields.io/badge/expo-sqlite-black?style=for-the-badge&logo=expo&logoColor=white"> 
+ <img src="https://img.shields.io/badge/react native-async storage-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+</div>
+
+### Tools
+
+<div style="float: left;">
+   <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black"> 
+   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=black"> 
+</div>
+
+> [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
+
+### Packages
+
+- 홈 화면 달력 컴포넌트: `react-native-calendars`
+- 문자 picker: `react-native-picker`
+- 날짜 picker: `react-native-community/datetimepicker`
+- 기술 분포 파이 차트: `react-native-chart-kit`
 
 > [React Navtive 선정 계기](https://velog.io/@skyu_dev/Post-Black-Belt2-앱-만드는데-왜-프론트엔드-개발자를-뽑을까-Web-App-개발기)
 
@@ -159,7 +187,7 @@
 
 ### [공통]
 
-- 구현 데모
+**하단 네비게이션바 구현 데모**
 
 ![Dec-21-2022 15-58-49](https://user-images.githubusercontent.com/79842380/208842623-f539bf47-b00c-495d-906d-132fc4190d3e.gif)
 
@@ -178,7 +206,7 @@
 
 ### [Home(Diary Calendar)]
 
-- 구현 데모
+**홈 화면 구현 데모**
 
 ![Dec-21-2022 16-09-42](https://user-images.githubusercontent.com/79842380/208842778-34f40f4d-0db0-4988-813d-dd9724dffcd0.gif)
 
@@ -200,7 +228,7 @@
 
 ### [Edit Diray]
 
-- 구현 데모
+**홈 화면의 다이어리 작성 구현 데모**
 
 ![Dec-21-2022 16-10-11](https://user-images.githubusercontent.com/79842380/208842861-336fe781-7952-4476-8147-44a10f7addd2.gif)
 
@@ -229,7 +257,7 @@
 
 ### [My page]
 
-- 구현 데모
+**마이페이지 화면 구현 데모**
 
 ![Dec-21-2022 16-11-16](https://user-images.githubusercontent.com/79842380/208842993-c1ef39ef-e930-463e-9590-f32689fcebb2.gif)
 
@@ -257,7 +285,7 @@
 
 ### [Tech tree]
 
-- 구현 데모
+**기술 트리 구현 데모**
 
 ![Dec-21-2022 16-11-46](https://user-images.githubusercontent.com/79842380/208843071-a77e7962-2954-4301-9ea3-f70cb59ecced.gif)
 
