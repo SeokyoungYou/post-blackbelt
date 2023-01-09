@@ -16,7 +16,15 @@ export class AsyncFirebaseUser {
     this.#localId = localId;
   }
 
-  getUser() {
+  get email() {
+    return this.#email;
+  }
+
+  get localId() {
+    return this.#localId;
+  }
+
+  get emailAndIdObj() {
     return { email: this.#email, localId: this.#localId };
   }
 }

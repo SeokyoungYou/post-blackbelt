@@ -4,7 +4,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import SettingHeader from "../../components/headers/SettingHeader";
 import { SCREEN_NAME } from "../../constants/screen-constants";
 import { getStorageFirebaseUser } from "../../utils/local-storage-fn/user-async";
-import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-fn";
+import { getFirebaseUser } from "../../class/AuthService-firebase";
 import WideBtn from "../../components/btns/WideBtn";
 import { theme } from "../../theme";
 import UserSyncBtns from "../../components/btns/UserSyncBtns";

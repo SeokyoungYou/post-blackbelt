@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import LoginForm from "./LoginForm";
 import { theme } from "../../theme";
-import { getFirebaseUser } from "../../utils/firebase-fn/firebaseuser-fn";
+import { getFirebaseUser } from "../../class/AuthService-firebase";
 import {
   BTN_TEXT,
   CHANGE_STATE,
