@@ -8,21 +8,25 @@ import {
   CHANGE_STATE,
   FORM_STATE,
   FORM_TITLE,
-  LOGIN_MSG,
   LOGIN_TYPE,
-  RESET_PASSWORD_MSG,
 } from "../../constants/login-form-const";
-import { SCREEN_NAME } from "../../constants/screen-constants";
+import useAuthForm from "../../hooks/useAuthForm";
 
 const initialInput = { email: "", password: "" };
 export default function UserLoginForm({ navigation }) {
-  const auth = useAuth();
+  const {
+    formMsg,
+    resetFormMsg,
+    useSignUpForm,
+    useLoginForm,
+    useResetPassword,
+  } = useAuthForm(navigation);
+
   const [formState, setFormState] = useState(FORM_STATE.SIGN_UP);
   const [input, setInput] = useState(initialInput);
-  const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    setMsg("");
+    resetFormMsg();
   }, [formState]);
 
   const setInputByType = (type, payload) => {
@@ -31,69 +35,15 @@ export default function UserLoginForm({ navigation }) {
     });
   };
 
-  const validateEmail = () => {
-    const { email } = input;
-    if (!email || !email.includes("@")) {
-      setMsg(LOGIN_MSG.EMAIL_ERR);
-      return false;
-    }
-    return true;
-  };
-
-  const validatePassword = () => {
-    const { password } = input;
-    if (!password || password.length < 6) {
-      setMsg(LOGIN_MSG.PASSWORD_ERR);
-      return false;
-    }
-    return true;
-  };
-
-  const validateSubmit = () => {
-    if (!validateEmail() || !validatePassword()) {
-      return false;
-    }
-    return true;
-  };
-
-  const handleAuth = async (authMethod) => {
-    if (!validateSubmit()) {
-      return;
-    }
-
-    try {
-      await auth[authMethod](input);
-      setMsg(LOGIN_MSG.SUCCESS);
-      navigation.navigate(SCREEN_NAME.SETTING);
-    } catch (error) {
-      setMsg(`${LOGIN_MSG.FAIL}\n에러 코드:${JSON.stringify(error.code)}`);
-    }
-  };
-
-  const handleResetPassword = async () => {
-    if (!validateEmail()) {
-      return;
-    }
-
-    try {
-      await auth.resetPassword(input.email);
-      setMsg(RESET_PASSWORD_MSG.SUCCESS);
-    } catch (error) {
-      setMsg(
-        `${RESET_PASSWORD_MSG.FAIL}\n 에러 코드:${JSON.stringify(error.code)}`
-      );
-    }
-  };
-
   const handleSubmit = {
     SIGN_UP() {
-      handleAuth("signUp");
+      useSignUpForm(input);
     },
     LOGIN() {
-      handleAuth("login");
+      useLoginForm(input);
     },
     REST_PASSWORD() {
-      handleResetPassword();
+      useResetPassword(input.email);
     },
   };
 
@@ -122,7 +72,7 @@ export default function UserLoginForm({ navigation }) {
       >
         <Text>{BTN_TEXT[formState]}</Text>
       </TouchableOpacity>
-      <Text style={styles.msg}>{msg}</Text>
+      <Text style={styles.msg}>{formMsg}</Text>
 
       <View style={styles.changeState}>
         {CHANGE_STATE.map((element) => {
